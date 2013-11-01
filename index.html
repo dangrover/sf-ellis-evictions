@@ -12,7 +12,7 @@
     <div class="container" ng-controller="AppController">
     	<h2>Ellis Act Evictions in San Francisco</h2>
    
-    	<p>by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://blogs.kqed.org/lowdown/">KQED's <cite>The Lowdown</cite></a></p>
+    	<p>by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://blogs.kqed.org/lowdown/">KQED's <em>The Lowdown</em></a></p>
     	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper rhoncus diam. Aenean lobortis massa sagittis lobortis elementum. Sed lacinia dui leo, nec porta tellus tempus a. Nullam iaculis porta rhoncus. Pellentesque vehicula scelerisque nisl vel accumsan. Nullam in justo in sapien sagittis tristique. Ut viverra quis ipsum nec sollicitudin. <a href="#">Read full article &rarr;</a>
     	</p>
 <br/><br/>
@@ -20,15 +20,14 @@
   <div class="row">
     	<div id="controls" class="span3">
           
-                <strong>Coalesce by:</strong><br/><div class="btn-group">
+                <strong>Group by:</strong> <div class="btn-group">
           <button class="btn btn-small">Month</button>
-          <button class="btn btn-small">Quarter</button>
           <button class="btn btn-small">Year</button>
         </div>
-<br/><br/>
-          <strong>Show:</strong><br/><div class="btn-group">
-          <button ng-class="classForTypeButton('units')" ng-click="showGraph(coalesce, 'units')">&#35; of Units</button>
-          <button ng-class="classForTypeButton('petitions')" ng-click="showGraph(coalesce, 'petitions')">&#35; of Petitions</button>
+<br/>
+          <strong>Show no. of:</strong><br/><div class="btn-group">
+          <button ng-class="classForTypeButton('units')" ng-click="showGraph(coalesce, 'units')">Units</button>
+          <button ng-class="classForTypeButton('petitions')" ng-click="showGraph(coalesce, 'petitions')">Petitions</button>
         </div>
       <br/><br/>
    
