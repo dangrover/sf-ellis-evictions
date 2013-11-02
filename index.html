@@ -2,7 +2,7 @@
 <html ng-app="ellis">
   <head>
   	<meta charset="utf-8">
-  	<title>Ellis Act Evictions in San Francisco</title>
+  	<title>The Ellis Act and San Francisco's Housing Stock</title>
   	<link href="./css/bootstrap.css" rel="stylesheet">
     <link href="./css/app.css" rel="stylesheet">
     <script src="./js/vendor.js"></script>
@@ -10,7 +10,7 @@
   </head>
   <body><br/>
     <div class="container" ng-controller="AppController">
-    	<h2>Ellis Act Evictions in San Francisco</h2>
+    	<h2>The Ellis Act and San Francisco's Housing Stock</h2>
    
     	<p>by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://blogs.kqed.org/lowdown/">KQED's <em>The Lowdown</em></a></p>
     	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper rhoncus diam. Aenean lobortis massa sagittis lobortis elementum. Sed lacinia dui leo, nec porta tellus tempus a. Nullam iaculis porta rhoncus. Pellentesque vehicula scelerisque nisl vel accumsan. Nullam in justo in sapien sagittis tristique. Ut viverra quis ipsum nec sollicitudin. <a href="#">Read full article &rarr;</a>
@@ -19,24 +19,52 @@
 
   <div class="row">
     	<div id="controls" class="span3">
-          
-                <strong>Group by:</strong> <div class="btn-group">
-          <button class="btn btn-small">Month</button>
-          <button class="btn btn-small">Year</button>
+          <form>
+            <strong>SHOW HOUSING UNITS</strong>
+            <label class="checkbox" for="show-ellis"/>
+                <input type="checkbox" id="show-ellis"/>
+                Withdrawn (Ellis Act)
+            </label>
+
+            <label class="checkbox" for="show-built"/>
+                <input type="checkbox" id="show-built"/>
+                Authorized
+            </label>
+
+            <label class="checkbox" for="show-built"/>
+                <input type="checkbox" id="show-built"/>
+                Constructed
+            </label>
+
+            <label class="checkbox" for="show-demolished"/>
+                <input type="checkbox" id="show-demolished"/>
+                Demolished
+            </label>
+             <label class="checkbox" for="show-altered"/>
+                <input type="checkbox" id="show-altered"/>
+                Gained/Lost from Alterations
+            </label>
+
+          </form>
+
+
+          <form>
+              <strong>JUXTAPOSE WITH</strong>
+              <select class="input">
+                <option>None</option>
+                <option>Number of jobs</option>
+                <option>Population</option>
+                <option>Median 1 bedroom rent</option>
+              </select>
+          </form>
+
         </div>
-<br/>
-          <strong>Show no. of:</strong><br/><div class="btn-group">
-          <button ng-class="classForTypeButton('units')" ng-click="showGraph(coalesce, 'units')">Units</button>
-          <button ng-class="classForTypeButton('petitions')" ng-click="showGraph(coalesce, 'petitions')">Petitions</button>
-        </div>
-      <br/><br/>
-   
-  
+
+      <div id="graph" class="span9">
+
       </div>
 
-      <div id="graph" class="span5">
-
-      </div>
+    
 
     	</div>
 
