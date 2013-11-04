@@ -13,35 +13,39 @@
     	<h2>The Ellis Act and San Francisco's Housing Stock</h2>
    
     	<p>by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://blogs.kqed.org/lowdown/">KQED's <em>The Lowdown</em></a></p>
+      <br/>
     	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper rhoncus diam. Aenean lobortis massa sagittis lobortis elementum. Sed lacinia dui leo, nec porta tellus tempus a. Nullam iaculis porta rhoncus. Pellentesque vehicula scelerisque nisl vel accumsan. Nullam in justo in sapien sagittis tristique. Ut viverra quis ipsum nec sollicitudin. <a href="#">Read full article &rarr;</a>
     	</p>
 <br/><br/>
 
   <div class="row">
     	<div id="controls" class="span3">
-          <form>
+          <form class="units-series">
             <strong>SHOW HOUSING UNITS</strong>
-            <label class="checkbox" for="show-ellis"/>
-                <input type="checkbox" id="show-ellis"/>
+            <label class="checkbox withdrawn" for="show-withdrawn"/>
+                <input type="checkbox" id="show-withdrawn" ng-model="housing_series_shown.withdrawn"/>
                 Withdrawn (Ellis Act)
             </label>
 
-            <label class="checkbox" for="show-built"/>
-                <input type="checkbox" id="show-built"/>
-                Authorized
+            <label class="checkbox demolished" for="show-demolished"/>
+                <input type="checkbox" id="show-demolished" ng-model="housing_series_shown.demolished"/>
+                Demolished
+            </label>
+            
+            <label class="checkbox authorized" for="show-authorized"/>
+                <input type="checkbox" id="show-authorized" ng-model="housing_series_shown.authorized"/>
+                Authorized for Construction
             </label>
 
-            <label class="checkbox" for="show-built"/>
-                <input type="checkbox" id="show-built"/>
+            <label class="checkbox completed" for="show-completed"/>
+                <input type="checkbox" id="show-completed" ng-model="housing_series_shown.completed"/>
                 Constructed
             </label>
 
-            <label class="checkbox" for="show-demolished"/>
-                <input type="checkbox" id="show-demolished"/>
-                Demolished
-            </label>
-             <label class="checkbox" for="show-altered"/>
-                <input type="checkbox" id="show-altered"/>
+            
+
+             <label class="checkbox altered" for="show-altered"/>
+                <input type="checkbox" id="show-altered" ng-model="housing_series_shown.altered"/>
                 Gained/Lost from Alterations
             </label>
 
@@ -49,7 +53,7 @@
 
 
           <form>
-              <strong>JUXTAPOSE WITH</strong>
+              <strong>SHOW INDICATOR</strong>
               <select class="input">
                 <option>None</option>
                 <option>Number of jobs</option>
@@ -60,9 +64,7 @@
 
         </div>
 
-      <div id="graph" class="span9">
-
-      </div>
+      <div id="graph" class="span9"></div>
 
     
 
