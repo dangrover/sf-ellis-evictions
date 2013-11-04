@@ -99,12 +99,12 @@ app.controller('AppController', ['$scope', '$http',
             angular.forEach($scope.housing_series_shown, function(value, key){if(value === true) showingSeriesIds.push(key);});
             console.log("we are showing the series: %o", showingSeriesIds);
 
-            var w = 800, h = 550, vMargin = 10, hMargin = 60;
+            var w = 700, h = 400, vMargin = 20, hMargin = 70;
 
-                var xScale = d3.time.scale()
-                .domain([d3.min($scope.all_data, function(e){return e.date;}),
-                         d3.max($scope.all_data, function(e){return e.date;})])
-                .rangeRound([hMargin, w - (hMargin * 2)]);
+            var xScale = d3.time.scale()
+            .domain([d3.min($scope.all_data, function(e){return e.date;}),
+                     d3.max($scope.all_data, function(e){return e.date;})])
+            .rangeRound([hMargin, w - (hMargin * 2)]);
 
             var yScale = d3.scale.linear()
             .domain([$scope.getMinValueForSeriesShown(showingSeriesIds),
@@ -113,34 +113,42 @@ app.controller('AppController', ['$scope', '$http',
 
             var xAxis = d3.svg.axis()
                 .scale(xScale)
-                .orient('bottom')
-                .ticks(d3.time.year,1)
-                .tickFormat(d3.time.format("'%y"));
+                .ticks(d3.time.year,1);
 
             var yAxisForEllis = d3.svg.axis()
                 .scale(yScale)
                 .orient('left').tickSize(10);
 
-           var widthForYear = Math.floor(w - (hMargin * 2)) / 20; // TODO get num of years dynamically
-           var unitsBarWidth = Math.floor(widthForYear / showingSeriesIds.length);
+           var widthForYear = (w - (hMargin * 2)) / 20; // TODO get num of years dynamically
+           var unitsBarWidth = widthForYear / showingSeriesIds.length;
 
 
             if (!$scope.isSetUp) {
                 graph_container = d3.select("#graph");
                 graph_container.html("");
 
-                var svg = graph_container.append("svg:svg").attr("width", w).attr("height", h + 100);
+                var svg = graph_container.append("svg:svg").attr("width", w + (hMargin*2)).attr("height", h + (vMargin*2));
+
+                 var year_labels_group = svg.append("g").attr('class', 'year_labels');
 
                 var all_bars_group = svg.append("g").attr('class', 'all_bars');
 
-                var xAxisDisplay = svg.append('g')
-                .attr('class', 'x-axis')
-                .attr('transform', 'translate(' + vMargin +', ' + (vMargin + yScale(0)) + ')')
-                .call(xAxis);
-        
+               
+                var xLine = svg.append('line')
+                .attr('class','x-line')
+                .style('stroke', 'black')
+                .style('stroke-width', '1');
+                
                 var yAxisDisplay =  svg.append('g')
                 .attr('class', 'y-axis').
                 attr('transform', 'translate(' + hMargin + ',' + vMargin + ')');
+
+                // y axis label
+                svg.append("text")
+    .attr("class", "y-label")
+    .text("Change in Housing Units")
+    .attr("text-anchor", "middle")
+    .attr("transform", "translate(12,"+((h/2)-(vMargin/2))+"), rotate(-90)");
 
                 $scope.isSetUp = true;
             } else {
@@ -148,8 +156,26 @@ app.controller('AppController', ['$scope', '$http',
                 var xAxisDisplay =  svg.selectAll("g.x-axis");
                 var yAxisDisplay = svg.selectAll('g.y-axis');
                 var all_bars_group = d3.selectAll("g.all_bars");
+                var year_labels_group = d3.selectAll('g.year_labels');
+                var xLine = svg.selectAll('line.x-line');
             }
 
+            // make some year labels
+            var year_labels = year_labels_group.selectAll('g').data($scope.all_data).enter().append('g').attr('class','year_label');
+
+            year_labels.append('rect')
+            .attr('x',function(d,i){return xScale(d.date);})
+            .attr('y', 0)
+            .attr('fill', function(d,i){return (i % 2) ? 'rgba(240,240,240,1)' : '#fff';})
+            .attr('width',widthForYear)
+            .attr('height', h - vMargin);
+
+            year_labels.append('text').text(function(d){return d3.time.format('\'%y')(d.date);})
+            .attr('x',function(d,i){return xScale(d.date)+(widthForYear/2);})
+            .attr('y', vMargin+2)
+            .attr('text-anchor','middle');
+
+            // make the bars
             all_bars_group.selectAll('g.year_group').remove();
             var in_year = all_bars_group.selectAll('g').data($scope.all_data).enter().append('g').attr('class','year_group');
 
@@ -178,18 +204,17 @@ app.controller('AppController', ['$scope', '$http',
                 .attr('width', function(d, i){
                     return unitsBarWidth;
                 });
-
             });
-            console.log("in_year = %o", yScale);
 
-
-
-        xAxisDisplay.selectAll("text")
-         .style("text-anchor", "middle")
-         .attr("top", '0px')
-         .attr("dx", "18px");
+        
 
          yAxisDisplay.transition().call(yAxisForEllis);
+
+         xLine.transition().attr('x1', hMargin)
+                .attr('x2', w - (hMargin*2))
+                .attr('y1', yScale(0) + vMargin)
+                .attr('y2', yScale(0) + vMargin);
+
         };
     }
 ]);
