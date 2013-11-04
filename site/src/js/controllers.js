@@ -43,7 +43,7 @@ app.controller('AppController', ['$scope', '$http',
                     });
 
 
-                    $scope.housing_series_shown['withdrawn'] = true;
+                    $scope.housing_series_shown = {'withdrawn':true, 'demolished': true}; 
                     
                 });
             });
@@ -57,8 +57,6 @@ app.controller('AppController', ['$scope', '$http',
             'altered':{}
         };
 
-        $scope.housing_series_shown = {};
-        
 
         $scope.$watch('housing_series_shown', function(newVal, oldVal){
             console.log("series=%o", newVal);
@@ -91,6 +89,9 @@ app.controller('AppController', ['$scope', '$http',
                                     return theMax;});
         };
 
+        var existingBars = {};
+  
+
         $scope.showGraph = function() {
             if($scope.all_data === undefined) return;
 
@@ -99,7 +100,7 @@ app.controller('AppController', ['$scope', '$http',
             angular.forEach($scope.housing_series_shown, function(value, key){if(value === true) showingSeriesIds.push(key);});
             console.log("we are showing the series: %o", showingSeriesIds);
 
-            var w = 700, h = 400, vMargin = 20, hMargin = 70;
+            var w = 800, h = 400, vMargin = 20, hMargin = 70;
 
             var xScale = d3.time.scale()
             .domain([d3.min($scope.all_data, function(e){return e.date;}),
@@ -120,7 +121,6 @@ app.controller('AppController', ['$scope', '$http',
                 .orient('left').tickSize(10);
 
            var widthForYear = (w - (hMargin * 2)) / 20; // TODO get num of years dynamically
-           var unitsBarWidth = widthForYear / showingSeriesIds.length;
 
 
             if (!$scope.isSetUp) {
@@ -133,6 +133,10 @@ app.controller('AppController', ['$scope', '$http',
 
                 var all_bars_group = svg.append("g").attr('class', 'all_bars');
 
+
+                var each_year = all_bars_group.selectAll('g').data($scope.all_data).enter().append('g').attr('class','year_group');
+
+                var tooltip = graph_container.append("div").attr("id","tooltip"); // Hovering tooltip
                
                 var xLine = svg.append('line')
                 .attr('class','x-line')
@@ -158,6 +162,8 @@ app.controller('AppController', ['$scope', '$http',
                 var all_bars_group = d3.selectAll("g.all_bars");
                 var year_labels_group = d3.selectAll('g.year_labels');
                 var xLine = svg.selectAll('line.x-line');
+
+                var each_year = all_bars_group.selectAll('g.year_group');
             }
 
             // make some year labels
@@ -170,48 +176,71 @@ app.controller('AppController', ['$scope', '$http',
             .attr('width',widthForYear)
             .attr('height', h - vMargin);
 
+
             year_labels.append('text').text(function(d){return d3.time.format('\'%y')(d.date);})
             .attr('x',function(d,i){return xScale(d.date)+(widthForYear/2);})
             .attr('y', vMargin+2)
             .attr('text-anchor','middle');
 
-            // make the bars
-            all_bars_group.selectAll('g.year_group').remove();
-            var in_year = all_bars_group.selectAll('g').data($scope.all_data).enter().append('g').attr('class','year_group');
-
-            angular.forEach(showingSeriesIds, function(seriesId, seriesIndex){
-                in_year.append('rect')
-                .attr('class', seriesId)
-                .transition()
-                .attr('height', function(d, i) {
-                    return Math.abs(yScale(d[seriesId] ? d[seriesId] : 0) - yScale(0));
-                })
-                .attr('x', function(d, i) {
-                    return  xScale(d.date) + (unitsBarWidth*seriesIndex);
-                })
-                .attr('y', function(d, i){
-                    var val = d[seriesId];
-                    console.log('val=%o', val);
-                    if(val <= 0){ // if it's negative, the top of the rect is on the baseline.
-                        return yScale(0) + vMargin;
-                    }else{ // if it's positive, the top of the rect is the baseline minus the actual height
-                        var valueY = yScale(val);
-                       
-                        var heightUsed = Math.abs(yScale(val) - yScale(0));
-                        return yScale(0) - heightUsed + vMargin;
-                    }
-                })
-                .attr('width', function(d, i){
-                    return unitsBarWidth;
-                });
+            /*
+            .on("mousemove", function() {
+                tooltip.style("visibility", "visible");
+                tooltip.style("top", 100 + "px");
+                
+                tooltip.style("left", (event.pageX + 6) + "px");
+                tooltip.innerHTML = 'hi';
+            })
+            .on("mouseout", function() {
+                tooltip.style("visibility", "hidden");
             });
+*/
 
-        
+           // each_year.selectAll('rect').remove();
+
+            var unitsBarWidth = widthForYear / showingSeriesIds.length;
+           angular.forEach($scope.housing_series_shown, function(shownNow, seriesId){
+                if(shownNow === false){ // REMOVE THIS BAR
+                    d3.selectAll('rect.'+seriesId).remove();
+                    existingBars[seriesId] = undefined;
+                }
+                else{ // MAKE OR UPDATE A BAR FOR THIS DATUM
+                     var this_bar = existingBars[seriesId];
+
+                    if(this_bar === undefined){
+                        this_bar = each_year.append('rect').attr('class', seriesId);
+                        existingBars[seriesId] = this_bar;
+                    }
+                    
+                    this_bar.transition()
+                    .attr('height', function(d, i) {
+                        return Math.abs(yScale(d[seriesId] ? d[seriesId] : 0) - yScale(0));
+                    })
+                    .attr('x', function(d, i) {
+                        return  xScale(d.date) + (unitsBarWidth*showingSeriesIds.indexOf(seriesId));
+                    })
+                    .attr('y', function(d, i){
+                        var val = d[seriesId];
+                        //console.log('val=%o', val);
+                        if(val <= 0){ // if it's negative, the top of the rect is on the baseline.
+                            return yScale(0) + vMargin;
+                        }else{ // if it's positive, the top of the rect is the baseline minus the actual height
+                            var valueY = yScale(val);
+                           
+                            var heightUsed = Math.abs(yScale(val) - yScale(0));
+                            return yScale(0) - heightUsed + vMargin;
+                        }
+                    })
+                    .attr('width', function(d, i){
+                        return unitsBarWidth;
+                    });
+
+                }
+           });
 
          yAxisDisplay.transition().call(yAxisForEllis);
 
          xLine.transition().attr('x1', hMargin)
-                .attr('x2', w - (hMargin*2))
+                .attr('x2', w)
                 .attr('y1', yScale(0) + vMargin)
                 .attr('y2', yScale(0) + vMargin);
 
