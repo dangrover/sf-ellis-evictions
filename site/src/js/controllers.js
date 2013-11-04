@@ -50,11 +50,11 @@ app.controller('AppController', ['$scope', '$http',
         };
 
         $scope.seriesInfo = {
-            'withdrawn':{},
-            'authorized':{},
-            'constructed':{},
-            'demolished':{},
-            'altered':{}
+            'withdrawn':{name:'Withdrawn (Ellis)'},
+            'authorized':{name:'Construction Authorized'},
+            'completed':{name:'Construction Completed'},
+            'demolished':{name:'Demolished'},
+            'altered':{name:'+/- from Alterations'}
         };
 
 
@@ -149,10 +149,10 @@ app.controller('AppController', ['$scope', '$http',
 
                 // y axis label
                 svg.append("text")
-    .attr("class", "y-label")
-    .text("Change in Housing Units")
-    .attr("text-anchor", "middle")
-    .attr("transform", "translate(12,"+((h/2)-(vMargin/2))+"), rotate(-90)");
+                .attr("class", "y-label")
+                .text("Change in Housing Units")
+                .attr("text-anchor", "middle")
+                .attr("transform", "translate(12,"+((h/2)-(vMargin/2))+"), rotate(-90)");
 
                 $scope.isSetUp = true;
             } else {
@@ -164,6 +164,7 @@ app.controller('AppController', ['$scope', '$http',
                 var xLine = svg.selectAll('line.x-line');
 
                 var each_year = all_bars_group.selectAll('g.year_group');
+                var tooltip =d3.select('div#tooltip');
             }
 
             // make some year labels
@@ -175,6 +176,7 @@ app.controller('AppController', ['$scope', '$http',
             .attr('fill', function(d,i){return (i % 2) ? 'rgba(240,240,240,1)' : '#fff';})
             .attr('width',widthForYear)
             .attr('height', h - vMargin);
+            
 
 
             year_labels.append('text').text(function(d){return d3.time.format('\'%y')(d.date);})
@@ -182,18 +184,8 @@ app.controller('AppController', ['$scope', '$http',
             .attr('y', vMargin+2)
             .attr('text-anchor','middle');
 
-            /*
-            .on("mousemove", function() {
-                tooltip.style("visibility", "visible");
-                tooltip.style("top", 100 + "px");
-                
-                tooltip.style("left", (event.pageX + 6) + "px");
-                tooltip.innerHTML = 'hi';
-            })
-            .on("mouseout", function() {
-                tooltip.style("visibility", "hidden");
-            });
-*/
+            
+
 
            // each_year.selectAll('rect').remove();
 
@@ -208,10 +200,35 @@ app.controller('AppController', ['$scope', '$http',
 
                     if(this_bar === undefined){
                         this_bar = each_year.append('rect').attr('class', seriesId);
+
                         existingBars[seriesId] = this_bar;
                     }
                     
-                    this_bar.transition()
+                    this_bar.on("mousemove", function(d, i) {
+                        tooltip.style("visibility", "visible");
+                        tooltip.style("top", event.clientY + "px");
+                        
+                        tooltip.style("left", (event.pageX + 6) + "px");
+
+
+                        var thisVal = Math.abs(d[seriesId]);
+                        var smallPart = 'units';
+
+                        if(i > 0){
+                            var prevVal = Math.abs($scope.all_data[i-1][seriesId]);
+                            var pctChange = Math.round(((thisVal/prevVal)*100) - 100);
+                            var symbol = (pctChange > 0) ? '\u25B2' : '\u25BC';
+                            smallPart += ' ('+symbol+Math.abs(pctChange)+'%)';
+                        }
+
+                        tooltip.html( '<strong>'+$scope.seriesInfo[seriesId].name+' in '+d.year+':</strong><br/>'
+                                     +'<span class="big-num">'+d3.format(',')(thisVal)+'<small>'+smallPart+'</small></span>');
+
+                    })
+                    .on("mouseout", function(el) {
+                        tooltip.style("visibility", "hidden");
+                    })
+                    .transition()
                     .attr('height', function(d, i) {
                         return Math.abs(yScale(d[seriesId] ? d[seriesId] : 0) - yScale(0));
                     })
@@ -233,7 +250,6 @@ app.controller('AppController', ['$scope', '$http',
                     .attr('width', function(d, i){
                         return unitsBarWidth;
                     });
-
                 }
            });
 
