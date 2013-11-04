@@ -256,7 +256,7 @@ app.controller('AppController', ['$scope', '$http',
          yAxisDisplay.transition().call(yAxisForEllis);
 
          xLine.transition().attr('x1', hMargin)
-                .attr('x2', w)
+                .attr('x2', w-(hMargin))
                 .attr('y1', yScale(0) + vMargin)
                 .attr('y2', yScale(0) + vMargin);
 
