@@ -20,8 +20,8 @@
 
   <div class="row">
     	<div id="controls" class="span3">
-          <form class="units-series">
-            <strong>SHOW HOUSING UNITS</strong>
+          <form class="units-series well">
+            <h4>Inventory Data</h4>
             <label class="checkbox withdrawn" for="show-withdrawn"/>
                 <input type="checkbox" id="show-withdrawn" ng-model="housing_series_shown.withdrawn"/>
                 Withdrawn (Ellis Act)
@@ -34,7 +34,7 @@
             
             <label class="checkbox authorized" for="show-authorized"/>
                 <input type="checkbox" id="show-authorized" ng-model="housing_series_shown.authorized"/>
-                Authorized for Construction
+                Construction Authorized
             </label>
 
             <label class="checkbox completed" for="show-completed"/>
@@ -46,21 +46,26 @@
 
              <label class="checkbox altered" for="show-altered"/>
                 <input type="checkbox" id="show-altered" ng-model="housing_series_shown.altered"/>
-                Gained/Lost from Alterations
+                +/- from Alterations
             </label>
 
           </form>
 
 
-          <form>
-              <strong>SHOW INDICATOR</strong>
-              <select class="input">
+          <form class="well">
+              <h4>Indicators</h4>
+              <select class="input input-medium">
                 <option>None</option>
                 <option>Number of jobs</option>
                 <option>Population</option>
                 <option>Median 1 bedroom rent</option>
               </select>
           </form>
+
+          <div id="sources">
+            <strong>Sources</strong>: <a href="http://www.sfrb.org/index.aspx?page=47">SF Rent Board</a> and <a href="http://www.sf-planning.org/index.aspx?page=1663#housing_inventory">SF Planning Commission</a> reports. Some data is not yet available for 2012-2013.
+          
+          </div>
 
         </div>
 
@@ -69,6 +74,8 @@
     
 
     	</div>
+
+
 
 
     	
