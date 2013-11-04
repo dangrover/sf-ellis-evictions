@@ -48,18 +48,45 @@ module.exports = function(grunt) {
     		tasks: ['default'],
     		options: {spawn: false}
   		}
-	}
+	},
+  clean: ['build/**'],
+  'gh-pages': {
+    options: {
+      base: 'build'
+    },
+    src: ['**']
+  },
+  connect: {
+    server:{
+    options:{
+      port: 8080,
+      base: './build'
+    }
+  }
+  },
+  'json-minify': {
+  build: {
+    files: 'build/**/*.json'
+  }
+}
+
  });
 
 
-  	grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-json-minify');
+  grunt.loadNpmTasks('grunt-gh-pages');
 
 	grunt.registerTask('default', ['concat', 'copy', 'sass']);
-	grunt.registerTask('dev', ['default','watch']);
+	grunt.registerTask('dev', ['default','connect', 'watch']);
+  grunt.registerTask('prod', ['clean','default','uglify', 'json-minify']);
+  grunt.registerTask('publish', ['prod', 'gh-pages']);
 };
 
