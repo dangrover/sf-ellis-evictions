@@ -24,14 +24,20 @@
     	<div id="controls" class="span3">
           <form class="units-series well">
             <h4>Units</h4>
-            <label class="checkbox withdrawn" for="show-withdrawn"/>
-                <input type="checkbox" id="show-withdrawn" ng-model="housing_series_shown.withdrawn"/>
-                {{seriesInfo.withdrawn.name}}
+            <label class="checkbox ellis" for="show-ellis"/>
+                <input type="checkbox" id="show-ellis" ng-model="housing_series_shown.ellis"/>
+                {{seriesInfo.ellis.name}}
             </label>
 
-             <label class="checkbox net" for="show-net"/>
-                <input type="checkbox" id="show-net" ng-model="housing_series_shown.net"/>
-                {{seriesInfo.net.name}}
+             <label class="checkbox nofault" for="show-nofault"/>
+                <input type="checkbox" id="show-nofault" ng-model="housing_series_shown.nofault"/>
+                {{seriesInfo.nofault.name}}
+            </label>
+
+
+             <label class="checkbox forcause" for="show-forcause"/>
+                <input type="checkbox" id="show-forcause" ng-model="housing_series_shown.forcause"/>
+                {{seriesInfo.forcause.name}}
             </label>
 
           </form>
