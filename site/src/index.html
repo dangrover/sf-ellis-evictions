@@ -10,11 +10,11 @@
   </head>
   <body><br/>
     <div class="container" ng-controller="AppController">
-    	<h2>The Ellis Act and San Francisco</h2>
+    	<h2>Impact of the Ellis Act in San Francisco</h2>
    
     	<p class="byline">by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://blogs.kqed.org/lowdown/">KQED's <em>The Lowdown</em></a></p>
       <br/>
-    	<p class="explanation">As real estate prices soar in San Francisco, landlords have turned to exploiting a state law called the Ellis Act. The law allows them to evict all tenants in a building provided the building is kept empty for five years or else rented at the old price. Landlords often do this because selling the building has become more profitable than continuing to rent it, and empty buildings typically sell for more.<a href="#">Read full article &rarr;</a></p> 
+    	<p class="explanation">As San Francisco real estate rates have soared in recent years, landlords have increasingly invoked a state law called the Ellis Act. Enacted in 1986, the law allows them to take their properties off the rental market and legally evict all tenants, generally with the intent of selling the units. This chart shows San Francisco's Ellis Act evictions since 1998, comparing rates with all no-fault evictions in the city during that same period, as well as all for cause evictions, in which tenants violated rental agreements. The chart is overlaid with San Francisco median home price rates. Use the drop-down menus to change the variables, and mouse over the bars to see eviction numbers by year. </p> 
 
         
     	</p>
@@ -23,7 +23,7 @@
   <div class="row">
     	<div id="controls" class="span3">
           <form class="units-series well">
-            <h4>Units</h4>
+            <h4>SF Evictions by Type</h4>
             <label class="checkbox ellis" for="show-ellis"/>
                 <input type="checkbox" id="show-ellis" ng-model="housing_series_shown.ellis"/>
                 {{seriesInfo.ellis.name}}
@@ -44,13 +44,21 @@
 
 
           <form class="well">
-              <h4>Median Home Price</h4>
+              <h4>SF Median Home Prices</h4>
               <select class="input input-medium" ng-model="price_series_shown">
-                <option value="none">Don't show</option>
-                <option value="all">{{priceInfo.all.name}}</option>
-                <option value="single">{{priceInfo.single.name}}</option>
-                <option value="1bed">{{priceInfo.1bed.name}}</option>
-                <option value="2bed">{{priceInfo.2bed.name}}</option>
+         
+                  <option value="none">Don't show</option>
+                  <optgroup label="------------------------"></optgroup>
+                  <option value="all">{{priceInfo.all.name}}</option>
+                  <option value="single">{{priceInfo.single.name}}</option>
+                  <option value="condo">{{priceInfo.condo.name}}</option>
+           <optgroup label="------------------------"></optgroup>
+
+                  <option value="1bed">{{priceInfo.1bed.name}}</option>
+                  <option value="2bed">{{priceInfo.2bed.name}}</option>
+                  <option value="3bed">{{priceInfo.3bed.name}}</option>
+             
+
               </select>
           </form>
 

@@ -47,9 +47,11 @@ app.controller('AppController', ['$scope', '$http',
 
         $scope.priceInfo = {
             'all':{name:'All homes'},
-            'single':{name:'Single family'},
+            'single':{name:'All single-family homes'},
+            'condo':{name:'All condos/co-ops'},
             '1bed':{name:'1 bedroom'},
-            '2bed':{name:'2 bedroom'}
+            '2bed':{name:'2 bedrooms'},
+            '3bed':{name:'3 bedrooms'}
         };
 
         $scope.$watch('housing_series_shown', function(newVal, oldVal){
