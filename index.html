@@ -46,11 +46,19 @@
           <form class="well">
               <h4>SF Median Home Prices</h4>
               <select class="input input-medium" ng-model="price_series_shown">
-                <option value="none">Don't show</option>
-                <option value="all">{{priceInfo.all.name}}</option>
-                <option value="single">{{priceInfo.single.name}}</option>
-                <option value="1bed">{{priceInfo.1bed.name}}</option>
-                <option value="2bed">{{priceInfo.2bed.name}}</option>
+         
+                  <option value="none">Don't show</option>
+                  <optgroup label="------------------------"></optgroup>
+                  <option value="all">{{priceInfo.all.name}}</option>
+                  <option value="single">{{priceInfo.single.name}}</option>
+                  <option value="condo">{{priceInfo.condo.name}}</option>
+           <optgroup label="------------------------"></optgroup>
+
+                  <option value="1bed">{{priceInfo.1bed.name}}</option>
+                  <option value="2bed">{{priceInfo.2bed.name}}</option>
+                  <option value="3bed">{{priceInfo.3bed.name}}</option>
+             
+
               </select>
           </form>
 
