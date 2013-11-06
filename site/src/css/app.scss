@@ -9,8 +9,10 @@
   	  stroke-width: 1; 
 }
 
-.y-axis text{
-	font-size:11px;
+.y-axis, .y-axis-right{
+	text{
+		font-size:11px;
+	}
 }
 
 .year_label text{
@@ -39,11 +41,30 @@ p.byline{
 	text-transform: uppercase;
 }
 
-$altered: #666;
-$completed: #11644D;
-$authorized: #A0B046;
-$withdrawn: #8D2036;
-$demolished: #CE0A31;
+$ellis: #8D2036;
+$nofault: orange;
+$forcause: rgba(50,50,50,1);
+
+
+.ellis{
+	background-color:$ellis;
+	fill:$ellis;
+	fill-opacity:0.85;
+}
+
+.nofault{
+	background-color:$nofault;
+	fill:$nofault;
+	fill-opacity:0.85;
+}
+
+.forcause{
+	background-color:$forcause;
+	fill:$forcause;
+	fill-opacity:0.85;
+}
+
+
 
 
 .units-series label{
@@ -63,30 +84,7 @@ $demolished: #CE0A31;
 	position:relative;
 	//left: 20px;
 }
-.altered{
-	background-color:$altered;
-	fill:$altered;
-}
 
-.completed{
-	background-color:$completed;
-	fill:$completed;
-}
-
-.authorized{
-	background-color:$authorized;
-	fill:$authorized;
-}
-
-.withdrawn{
-	background-color:$withdrawn;
-	fill:$withdrawn;
-}
-
-.demolished{
-	background-color:$demolished;
-	fill:$demolished;
-}
 
 #sources{
 	font-size:11px;
