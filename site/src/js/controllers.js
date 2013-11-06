@@ -153,7 +153,7 @@ app.controller('AppController', ['$scope', '$http',
                 // y axis label
                 svg.append("text")
                 .attr("class", "y-label")
-                .text("Housing Units")
+                .text("Evictions")
                 .attr("text-anchor", "middle")
                 .attr("transform", "translate(12,"+((h/2)-(vMargin/2))+"), rotate(-90)");
 
@@ -212,9 +212,9 @@ app.controller('AppController', ['$scope', '$http',
 
             svg.append("text")
             .attr("class", "y-label-right")
-            .text("Median Price")
+            .text("Median Home Price")
             .attr("text-anchor", "middle")
-            .attr("transform", "translate("+(w)+", "+((h/2)-(vMargin/2))+"), rotate(-90)");
+            .attr("transform", "translate("+(w)+", "+((h/2)-(vMargin/2))+"), rotate(90)");
 
 
             var line = d3.svg.line()
@@ -255,7 +255,7 @@ app.controller('AppController', ['$scope', '$http',
                    
 
                     tooltip.html( '<strong>'+$scope.seriesInfo[seriesId].name+' in '+d.year+':</strong><br/>'
-                                 +'<span class="big-num">'+d3.format(',')(thisVal)+'<small>units</small></span>');
+                                 +'<span class="big-num">'+d3.format(',')(thisVal)+'</span>');
 
                 })
                 .on("mouseout", function(el) {
