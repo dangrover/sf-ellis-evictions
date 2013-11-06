@@ -10,11 +10,11 @@
   </head>
   <body><br/>
     <div class="container" ng-controller="AppController">
-    	<h2>The Ellis Act and San Francisco's Housing Stock</h2>
+    	<h2>The Ellis Act and San Francisco</h2>
    
     	<p class="byline">by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://blogs.kqed.org/lowdown/">KQED's <em>The Lowdown</em></a></p>
       <br/>
-    	<p class="explanation">The Ellis Act is a California state law allowing a landlord to go &quot;out of business&quot; and evict everyone in a given building, provided they keep the building empty for five years (or else lease at the old rent). The law was used as intended until the mid-90's when landlords begun using it more heavily. Meanwhile, as the city's gone through booms and busts, the housing construction pipeline lags behind demand, and many of the units built are far more expensive than those now vacant. <a href="#">Read full article &rarr;</a></p> 
+    	<p class="explanation">Description here Description here Description here Description here Description here Description here Description here Description here <a href="#">Read full article &rarr;</a></p> 
 
         
     	</p>
@@ -23,50 +23,33 @@
   <div class="row">
     	<div id="controls" class="span3">
           <form class="units-series well">
-            <h4>Inventory Data</h4>
+            <h4>Units</h4>
             <label class="checkbox withdrawn" for="show-withdrawn"/>
                 <input type="checkbox" id="show-withdrawn" ng-model="housing_series_shown.withdrawn"/>
                 {{seriesInfo.withdrawn.name}}
             </label>
 
-            <label class="checkbox demolished" for="show-demolished"/>
-                <input type="checkbox" id="show-demolished" ng-model="housing_series_shown.demolished"/>
-                {{seriesInfo.demolished.name}}
-            </label>
-            
-            <label class="checkbox authorized" for="show-authorized"/>
-                <input type="checkbox" id="show-authorized" ng-model="housing_series_shown.authorized"/>
-                {{seriesInfo.authorized.name}}
-            </label>
-
-            <label class="checkbox completed" for="show-completed"/>
-                <input type="checkbox" id="show-completed" ng-model="housing_series_shown.completed"/>
-                {{seriesInfo.completed.name}}
-            </label>
-
-            
-
-             <label class="checkbox altered" for="show-altered"/>
-                <input type="checkbox" id="show-altered" ng-model="housing_series_shown.altered"/>
-                {{seriesInfo.altered.name}}
+             <label class="checkbox net" for="show-net"/>
+                <input type="checkbox" id="show-net" ng-model="housing_series_shown.net"/>
+                {{seriesInfo.net.name}}
             </label>
 
           </form>
 
 
           <form class="well">
-              <h4>Indicators</h4>
-              <select class="input input-medium">
-                <option>None</option>
-                <option>Number of jobs</option>
-                <option>Population</option>
-                <option>Median 1 bedroom rent</option>
+              <h4>Median Home Price</h4>
+              <select class="input input-medium" ng-model="price_series_shown">
+                <option value="none">Don't show</option>
+                <option value="all">{{priceInfo.all.name}}</option>
+                <option value="single">{{priceInfo.single.name}}</option>
+                <option value="1bed">{{priceInfo.1bed.name}}</option>
+                <option value="2bed">{{priceInfo.2bed.name}}</option>
               </select>
           </form>
 
           <div id="sources">
-            <strong>Sources</strong>: <a href="http://www.sfrb.org/index.aspx?page=47">SF Rent Board</a> and <a href="http://www.sf-planning.org/index.aspx?page=1663#housing_inventory">SF Planning Commission</a> reports. Some data is not yet available for 2012-2013.
-          
+            <strong>Sources</strong>: <a href="http://www.sfrb.org/index.aspx?page=47">SF Rent Board</a>, <a href="http://www.sf-planning.org/index.aspx?page=1663#housing_inventory">SF Planning</a>, <a href="http://www.zillow.com/local-info/CA-San-Francisco-home-value/r_20330/#metric=mt%3D19%26dt%3D1%26tp%3D6%26rt%3D8%26r%3D20330%26el%3D0">Zillow.com</a>.
           </div>
 
         </div>
