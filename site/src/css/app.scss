@@ -1,4 +1,7 @@
 
+body{
+	margin-top:20px;
+}
 .tick{
 	color:#000;	
 }
@@ -27,7 +30,7 @@
 	color:#333;
 	font-weight:normal;
 	text-transform: uppercase;
-	font-size:11px;
+	font-size:14px;
 }
 
 
@@ -42,7 +45,7 @@ p.byline{
 }
 
 $ellis: #8D2036;
-$nofault: orange;
+$nofault: #a85f26;
 $forcause: rgba(50,50,50,1);
 
 
@@ -65,8 +68,6 @@ $forcause: rgba(50,50,50,1);
 }
 
 
-
-
 .units-series label{
 	padding:3px;
 	padding-left:24px;
@@ -84,7 +85,6 @@ $forcause: rgba(50,50,50,1);
 	position:relative;
 	//left: 20px;
 }
-
 
 #sources{
 	font-size:11px;
@@ -114,3 +114,7 @@ $forcause: rgba(50,50,50,1);
     }
 }
 
+.sharing{
+	padding-top:8px;
+	text-align:right;
+}

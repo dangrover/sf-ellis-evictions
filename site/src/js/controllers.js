@@ -72,7 +72,7 @@ app.controller('AppController', ['$scope', '$http',
             var showingSeriesIds = [];
             angular.forEach($scope.evictions_series_shown, function(value, key){if(value === true) showingSeriesIds.push(key);});
 
-            var w = 800, h = 400, vMargin = 20, hMargin = 70;
+            var w = 730, h = 400, vMargin = 20, hMargin = 70;
 
             var xScale = d3.time.scale()
             .domain([d3.min($scope.evictions, function(e){return e.date;}),
@@ -107,7 +107,11 @@ app.controller('AppController', ['$scope', '$http',
                
                 svg.append('line').attr('class','x-line')
                 .style('stroke', 'black')
-                .style('stroke-width', '1');
+                .style('stroke-width', '1')
+                .attr('x1', hMargin)
+                .attr('x2', w-(hMargin))
+                .attr('y1', yScaleForEllis(0) + vMargin)
+                .attr('y2', yScaleForEllis(0) + vMargin);
                 
                 svg.append('g').attr('class', 'y-axis').
                 attr('transform', 'translate(' + hMargin + ',' + vMargin + ')');
@@ -234,12 +238,7 @@ app.controller('AppController', ['$scope', '$http',
            });
 
              yAxisLeftDisplay.transition().call(yAxisForEllis);
-
-             xLine.transition().attr('x1', hMargin)
-                    .attr('x2', w-(hMargin))
-                    .attr('y1', yScaleForEllis(0) + vMargin)
-                    .attr('y2', yScaleForEllis(0) + vMargin);
-
+             
             };
     }
 ]);
