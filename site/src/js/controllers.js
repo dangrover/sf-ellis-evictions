@@ -79,7 +79,6 @@ app.controller('AppController', ['$scope', '$http',
             }else{
                 var w = 700, h = 420;
             }
-
             var vMargin = 20, hMargin = 60;
 
             var xScale = d3.time.scale()
