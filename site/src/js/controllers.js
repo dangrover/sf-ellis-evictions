@@ -130,7 +130,7 @@ app.controller('AppController', ['$scope', '$http',
                 .attr("class", "y-label-right")
                 .text("Median Home Price")
                 .attr("text-anchor", "middle")
-                .attr("transform", "translate("+(w - hMargin)+", "+((h/2)-(vMargin/2))+"), rotate(90)");
+                .attr("transform", "translate("+(w+hMargin/2)+", "+((h/2)-(vMargin/2))+"), rotate(90)");
 
                 // y axis label
                 svg.append("text")
@@ -171,7 +171,7 @@ app.controller('AppController', ['$scope', '$http',
             .attr('text-anchor','middle');
 
             // HOUSING PRICE DATA
-            d3.selectAll('.y-label-right').remove();
+            d3.selectAll('.y-label-right').style('display', 'inherit');
 
             if($scope.price_series_shown !== 'none'){
                 // make new the Y scale
@@ -200,6 +200,7 @@ app.controller('AppController', ['$scope', '$http',
             else{ // get rid of the secondary Y axis
                 path.style('display', 'none');
                 yAxisRightDisplay.style('display', 'none');
+                d3.selectAll('.y-label-right').style('display', 'none');
             }
 
         // EVICTIONS DATA
