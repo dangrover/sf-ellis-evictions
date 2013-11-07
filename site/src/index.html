@@ -12,7 +12,7 @@
     <div class="container" ng-controller="AppController">
     	<h2>Impact of the Ellis Act in San Francisco</h2>
    
-    	<p class="byline">by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://blogs.kqed.org/lowdown/">KQED's <em>The Lowdown</em></a></p>
+    	<p class="byline">by <a href="http://twitter.com/dangrover">@DanGrover</a> for <a href="http://www.kqed.org/news/"><em>KQED News</em></a></p>
       <br/>
     	<p class="explanation">As San Francisco real estate rates have soared in recent years, landlords have increasingly invoked a state law called the Ellis Act. Enacted in 1986, the law allows them to take their properties off the rental market and legally evict all tenants, generally with the intent of selling the units. This chart shows San Francisco's Ellis Act evictions since 1998, comparing rates with all no-fault evictions in the city during that same period, as well as all for cause evictions, in which tenants violated rental agreements. The chart is overlaid with San Francisco median home price rates. Use the drop-down menus to change the variables, and mouse over the bars to see eviction numbers by year. </p> 
 
@@ -25,18 +25,18 @@
           <form class="units-series well">
             <h4>SF Evictions by Type</h4>
             <label class="checkbox ellis" for="show-ellis"/>
-                <input type="checkbox" id="show-ellis" ng-model="housing_series_shown.ellis"/>
+                <input type="checkbox" id="show-ellis" ng-model="evictions_series_shown.ellis"/>
                 {{seriesInfo.ellis.name}}
             </label>
 
              <label class="checkbox nofault" for="show-nofault"/>
-                <input type="checkbox" id="show-nofault" ng-model="housing_series_shown.nofault"/>
+                <input type="checkbox" id="show-nofault" ng-model="evictions_series_shown.nofault"/>
                 {{seriesInfo.nofault.name}}
             </label>
 
 
              <label class="checkbox forcause" for="show-forcause"/>
-                <input type="checkbox" id="show-forcause" ng-model="housing_series_shown.forcause"/>
+                <input type="checkbox" id="show-forcause" ng-model="evictions_series_shown.forcause"/>
                 {{seriesInfo.forcause.name}}
             </label>
 
