@@ -11,6 +11,11 @@ body{
 	  stroke: black; 
   	  stroke-width: 1; 
 }
+.colophon{
+	font-size:9px;
+	text-align:right;
+	margin-top:40px;
+}
 
 .y-axis, .y-axis-right{
 	text{
@@ -117,4 +122,31 @@ $forcause: rgba(50,50,50,1);
 .sharing{
 	padding-top:8px;
 	text-align:right;
+}
+
+
+/* itty bitty embeddable version of the whole site */
+body.embeddable{
+	padding-top:0;
+	padding:6px;
+	margin:6px;
+	.well {
+  		padding: 6px;
+	}
+
+	#controls h4{
+		font-size:9px;
+		font-weight:bold;
+	}
+
+	.year_label text{
+		font-size:11px;
+		fill:#666;
+	}
+
+	.units-series label{
+		font-size:10px;
+		padding:2px;
+		padding-left:20px;
+	}
 }

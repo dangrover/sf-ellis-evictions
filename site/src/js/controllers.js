@@ -72,12 +72,20 @@ app.controller('AppController', ['$scope', '$http',
             var showingSeriesIds = [];
             angular.forEach($scope.evictions_series_shown, function(value, key){if(value === true) showingSeriesIds.push(key);});
 
-            var w = 730, h = 400, vMargin = 20, hMargin = 70;
+            var embeddableVersion = !d3.selectAll('body.embeddable').empty();
+
+            if(embeddableVersion){
+                var w = 420, h = 300;
+            }else{
+                var w = 700, h = 420;
+            }
+
+            var vMargin = 20, hMargin = 60;
 
             var xScale = d3.time.scale()
             .domain([d3.min($scope.evictions, function(e){return e.date;}),
                      d3.max($scope.evictions, function(e){return e.date;})])
-            .rangeRound([hMargin, w - (hMargin * 2)]);
+            .rangeRound([hMargin, w - hMargin]);
 
             var yScaleForEllis = d3.scale.linear()
             .domain([0,$scope.getMaxValueForSeriesShown(showingSeriesIds)])
@@ -117,13 +125,13 @@ app.controller('AppController', ['$scope', '$http',
                 attr('transform', 'translate(' + hMargin + ',' + vMargin + ')');
 
                 svg.append('g').attr('class', 'y-axis-right').
-                attr('transform', 'translate(' + (w - hMargin) + ',' + vMargin + ')');
+                attr('transform', 'translate(' + (w - hMargin/2) + ',' + vMargin + ')');
 
                  svg.append("text")
                 .attr("class", "y-label-right")
                 .text("Median Home Price")
                 .attr("text-anchor", "middle")
-                .attr("transform", "translate("+(w)+", "+((h/2)-(vMargin/2))+"), rotate(90)");
+                .attr("transform", "translate("+(w - hMargin)+", "+((h/2)-(vMargin/2))+"), rotate(90)");
 
                 // y axis label
                 svg.append("text")
